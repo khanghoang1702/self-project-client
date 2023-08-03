@@ -31,7 +31,7 @@ const userSlice = createSlice({
         },
         getUserDetailSuccess(state, action) {
             state.loading = false
-            state.data.userDetail = {...state.data.userDetail, ...action.payload}
+            state.data = {...state.data, userDetail: action.payload}
             state.error = null
         },
         clearUserDetail(state, action) {
@@ -43,7 +43,7 @@ const userSlice = createSlice({
         },
         getUserBlogsSuccess(state, action) {
             state.loading = false
-            state.data= {...state.data, userBlogs: [...action.payload]}
+            state.data = {...state.data, userBlogs: [...action.payload]}
             state.error = null
         },
         publishBlogRequest(state) {
@@ -53,18 +53,20 @@ const userSlice = createSlice({
         publishBlogSuccess(state, action) {
             state.loading = false
             const index = state.data.userBlogs.findIndex((blog) => blog.id === action.payload.id)
-            state.data.userBlogs[index] = {...state.data.userBlogs[index], ...action.payload}
+            const newItem = {...state.data.userBlogs[index], ...action.payload}
+            state.data = {...state.data, userBlogs: Object.assign([], state.data.userBlogs, {[index]: newItem})}
             state.error = null
         },
-        updateUserRequest () {
+
+        updateUserRequest() {
 
         },
-        updateUserSuccess (state, action) {
+        updateUserSuccess(state, action) {
             state.loading = false
-            state.data.userDetail = {...state.data.userDetail, ...action.payload}
+            state.data = {...state.data, userDetail: action.payload}
             state.error = null
         },
-        updateBlogRequest () {
+        updateBlogRequest() {
 
         },
     }

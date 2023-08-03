@@ -40,8 +40,7 @@ const getBlog = async (blogId: string) => {
 }
 
 const getTopBlogs = async (limit?: number) => {
-    let params = {}
-    params = {
+    let params = {
         ...(limit && {limit: limit})
     }
     const res = await blogService.get<ApiResponse<TopBlogs[]>>('/top-blogs', {params});
@@ -49,8 +48,7 @@ const getTopBlogs = async (limit?: number) => {
 }
 
 const getTopBloggers = async (limit?: number) => {
-    let params = {}
-    params = {
+    let params = {
         ...(limit && {limit: limit})
     }
     const res = await userService.get<ApiResponse<User[]>>(`/top-bloggers`, {params});
@@ -83,7 +81,7 @@ const updateBlog = async (blogId: string, data: UpdateBlog) => {
         toast('Update blog successfully', {
             type: 'success'
         })
-        return res.data
+        return res.data.data
     } catch (e: any) {
         toast(e?.message, {
             type: 'error'
